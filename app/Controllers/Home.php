@@ -18,7 +18,7 @@ class Home extends BaseController
 	{
 		$email = session()->get('user');
 		$grafik = $this->model_dashboard->getGrafik();
-		
+
 		$nama_grafik = null;
 		$jumlah_grafik = null;
 
@@ -44,7 +44,7 @@ class Home extends BaseController
 	public function profile()
 	{
 		$email = session()->get('user');
-		
+
 		$data = [
 			'title'	=> 'User Profile',
 			'user' 	=> $this->model_user->getUser($email)
@@ -55,7 +55,7 @@ class Home extends BaseController
 	public function editProfile()
 	{
 		$email = session()->get('user');
-		
+
 		$data = [
 			'title'			=> 'Edit Profile',
 			'user' 			=> $this->model_user->getUser($email),
@@ -67,32 +67,30 @@ class Home extends BaseController
 	public function prosesEdit()
 	{
 		if (!$this->validate([
-			'nama'			=> [
+			'nama_user'			=> [
 				'rules'		=> 'required',
 				'errors'	=> [
-					'required'		=> 'Nama lengkap wajib diisi.'
+					'required'	=> 'Nama lengkap wajib diisi.'
 				]
 			],
 			'foto'			=> [
 				'rules' 	=> 'max_size[foto,2048]|mime_in[foto,image/jpg,image/jpeg,image/png]',
 				'errors'	=> [
-					'mime_in' => 'Ekstensi file foto harus berupa jpg, jpeg, png.',
-					'max_size' => 'Ukuran file foto maksimal 2 MB.'
+					'mime_in' 	=> 'Ekstensi file foto harus berupa jpg, jpeg, png.',
+					'max_size' 	=> 'Ukuran file foto maksimal 2 MB.'
 				]
 			]
 		])) {
-			
+
 			return redirect()->to('/home/editProfile')->withInput();
-
 		} else {
-
-			$data =[
+			$data = [
 				'id_user'	=> $this->request->getPost('id_user'),
 				'email'		=> $this->request->getPost('email'),
-				'nama'		=> $this->request->getPost('nama'),
+				'nama_user'	=> $this->request->getPost('nama_user'),
 				'foto'		=> $this->request->getFile('foto')
 			];
-			
+
 			$foto_lama = $this->request->getPost('foto_lama');
 
 			// jika foto tidak berubah

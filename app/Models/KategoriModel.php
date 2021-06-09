@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Models;
 
@@ -14,10 +14,10 @@ class KategoriModel extends Model
 	{
 		if ($id == false) {
 			return $this->table($this->table)
-									->findAll();
+				->findAll();
 		} else {
 			return $this->table($this->table)
-									->find($id);
+				->find($id);
 		}
 	}
 }

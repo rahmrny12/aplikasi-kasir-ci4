@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 namespace App\Database\Migrations;
- 
+
 use CodeIgniter\Database\Migration;
- 
+
 class Transaksi extends Migration
 {
     public function up()
@@ -16,21 +16,36 @@ class Transaksi extends Migration
                 'unsigned'          => TRUE,
                 'auto_increment'    => TRUE
             ],
-            'total_transaksi'       => [
+            'id_user'                  => [
                 'type'              => 'INT',
-                'constraint'        => '11',
+                'constraint'        => 11,
             ],
-            'user'                  => [
-                'type'              => 'VARCHAR',
-                'constraint'        => '100',  
+            'total_transaksi'       => [
+                'type'              => 'BIGINT',
+                'constraint'        => 20,
             ],
+            'bayar_transaksi'       => [
+                'type'              => 'BIGINT',
+                'constraint'        => 20,
+            ],
+            'kembalian_transaksi'   => [
+                'type'              => 'BIGINT',
+                'constraint'        => 20,
+            ],
+            'tanggal_transaksi'     => [
+                'type'              => 'DATE'
+            ],
+            'waktu_transaksi'       => [
+                'type'              => 'TIME'
+            ]
         ]);
         $this->forge->addKey('id_transaksi', TRUE);
+        $this->forge->addForeignKey('id_user', 'user', 'id_user', 'CASCADE', 'CASCADE');
         $this->forge->createTable('transaksi');
     }
- 
+
     //--------------------------------------------------------------------
- 
+
     public function down()
     {
         $this->forge->dropTable('transaksi');

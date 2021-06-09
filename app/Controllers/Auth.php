@@ -25,6 +25,7 @@ class Auth extends Controller
 			'title' 		=> 'Halaman Login',
 			'validation'	=> \Config\Services::validation()
 		];
+
 		return view('auth/login', $data);
 	}
 
@@ -106,22 +107,22 @@ class Auth extends Controller
 		$validation = \Config\Services::validation();
 
 		$data = [
-			'nama' 					=> htmlspecialchars(ucwords(strtolower($this->request->getPost('nama')))),
-			'email' 				=> htmlspecialchars($this->request->getPost('email')),
+			'nama_user' 			=> htmlspecialchars(ucwords(strtolower($this->request->getPost('nama')))),
+			'email' 					=> htmlspecialchars($this->request->getPost('email')),
 			'password' 				=> $this->request->getPost('password'),
-			'konf_password'			=> $this->request->getPost('konf_password'),
-			'foto'					=> 'default.jpg',
+			'konf_password'		=> $this->request->getPost('konf_password'),
+			'foto'						=> 'default.jpg',
 			'level_user'			=> 'kasir'
 		];
 
 		if ($validation->run($data, 'registrasi') == false) {
-
 			return redirect()->to('/auth/registrasi')->withInput();
 		} else {
 			$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 			unset($data['konf_password']);
 
 			$this->model_user->insert($data);
+
 			session()->setFlashdata('success', 'Akun baru berhasil ditambahkan!');
 			return redirect()->to('/auth');
 		}

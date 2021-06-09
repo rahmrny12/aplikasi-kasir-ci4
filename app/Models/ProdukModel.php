@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Models;
 
@@ -14,19 +14,19 @@ class ProdukModel extends Model
 	{
 		if ($id == false) {
 			return $this->table($this->table)
-						->join('kategori', 'kategori.id_kategori = produk.id_kategori')
-						->orderBy('id_produk', 'DESC');
+				->join('kategori', 'kategori.id_kategori = produk.id_kategori')
+				->orderBy('id_produk', 'DESC');
 		} else {
 			return $this->table($this->table)
-						->join('kategori', 'kategori.id_kategori = produk.id_kategori')
-						->find($id);
+				->join('kategori', 'kategori.id_kategori = produk.id_kategori')
+				->find($id);
 		}
 	}
 
 	public function cari($keyword)
 	{
 		return $this->table($this->table)
-					->like('nama_produk', $keyword)
-					->orLike('nama_kategori', $keyword);
+			->like('nama_produk', $keyword)
+			->orLike('nama_kategori', $keyword);
 	}
 }

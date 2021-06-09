@@ -9,7 +9,7 @@
   <div class="col-lg-8">
 
     <?= form_open_multipart('home/prosesEdit'); ?>
-    
+
     <input type="hidden" name="id_user" value="<?= $user['id_user']; ?>">
     <input type="hidden" name="foto_lama" value="<?= $user['foto']; ?>">
     <div class="form-group row">
@@ -19,11 +19,11 @@
       </div>
     </div>
     <div class="form-group row">
-      <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap</label>
+      <label for="nama_user" class="col-sm-3 col-form-label">Nama Lengkap</label>
       <div class="col-sm-8">
-        <input type="text" class="<?= ($validation->hasError('nama')) ? 'form-control is-invalid' : 'form-control'; ?>" id="nama" name="nama" value="<?= $user['nama'] ?>">
+        <input type="text" class="<?= ($validation->hasError('nama_user')) ? 'form-control is-invalid' : 'form-control'; ?>" id="nama_user" name="nama_user" value="<?= $user['nama_user'] ?>">
         <div class="invalid-feedback">
-          <?= $validation->getError('nama'); ?>
+          <?= $validation->getError('nama_user'); ?>
         </div>
       </div>
     </div>

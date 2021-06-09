@@ -42,17 +42,17 @@ class Validation
 	//--------------------------------------------------------------------
 
 	public $registrasi = [
-		'nama'				=> 'required',
-		'email'				=> 'required|valid_email|is_unique[user.email]',
+		'nama_user'			=> 'required',
+		'email'				  => 'required|valid_email|is_unique[user.email]',
 		'password'			=> 'required|min_length[8]',
-		'konf_password'		=> 'required|matches[password]'
+		'konf_password'	=> 'required|matches[password]'
 	];
 
 	public $registrasi_errors = [
-		'nama'				=> [
+		'nama_user'			=> [
 			'required'		=> 'Nama lengkap wajib diisi.',	
 		],
-		'email'				=> [
+		'email'					=> [
 			'required'		=> 'Email wajib diisi.',
 			'valid_email'	=> 'Format email tidak sesuai.',
 			'is_unique'		=> 'Email sudah pernah dipakai.'
@@ -62,8 +62,8 @@ class Validation
 			'min_length'	=> 'Password minimal harus 8 karakter.'
 		],
 		'konf_password'		=> [
-			'required'		=> 'Konfirmasi password wajib diisi.',
-			'matches'		=> 'Konfirmasi password tidak sesuai.'
+				'required'		=> 'Konfirmasi password wajib diisi.',
+				'matches'			=> 'Konfirmasi password tidak sesuai.'
 		]
 	];
 	

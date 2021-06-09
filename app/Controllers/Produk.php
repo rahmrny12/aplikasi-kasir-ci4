@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Controllers;
 
@@ -83,24 +83,23 @@ class Produk extends Controller
 				]
 			],
 			'nama_produk'	=> [
-	        	'rules'   	=> 'required|is_unique[produk.nama_produk]',
-	        	'errors'  	=> [
-		          	'required'		=> 'Nama produk wajib diisi.',
+				'rules'   	=> 'required|is_unique[produk.nama_produk]',
+				'errors'  	=> [
+					'required'		=> 'Nama produk wajib diisi.',
 					'is_unique'		=> 'Nama produk sudah pernah digunakan.'
-	        	]
-	      	],
-	      	'harga_produk'	=> [
-	      		'rules'		=> 'required|integer|min_length[4]',
-	      		'errors'	=> [
-	      			'required'	 	=> 'Harga produk wajib diisi.',
-					'integer'	 	=> 'Harga produk harus bernilai angka.',
+				]
+			],
+			'harga_produk'	=> [
+				'rules'		=> 'required|integer|min_length[4]',
+				'errors'	=> [
+					'required'	 	=> 'Harga produk wajib diisi.',
+					'integer'	 		=> 'Harga produk harus bernilai angka.',
 					'min_length' 	=> 'Harga produk minimal berisi 4 digit',
-	      		]
-	      	]
+				]
+			]
 		])) {
 
 			return redirect()->to('/produk/tambah')->withInput();
-
 		} else {
 			$data = [
 				'id_kategori' 	=> $this->request->getPost('id_kategori'),
@@ -109,6 +108,7 @@ class Produk extends Controller
 			];
 
 			$this->model_produk->save($data);
+
 			session()->setFlashdata('success', 'Produk baru berhasil dibuat!');
 			return redirect()->to('/produk');
 		}
@@ -126,13 +126,13 @@ class Produk extends Controller
 		$kategori = $this->model_kategori->getKategori();
 
 		$data = [
-	    	'title'			=> 'Ubah Produk',
-	    	'user'			=> $user,
-	    	'produk'		=> $this->model_produk->getProduk($id),
-	    	'kategori'		=> ['' => 'Pilih Kategori'] + array_column($kategori, 'nama_kategori', 'id_kategori'),
-	    	'validation'	=> \Config\Services::validation()
-	    ];
-	    return view('produk/edit', $data);
+			'title'			=> 'Ubah Produk',
+			'user'			=> $user,
+			'produk'		=> $this->model_produk->getProduk($id),
+			'kategori'		=> ['' => 'Pilih Kategori'] + array_column($kategori, 'nama_kategori', 'id_kategori'),
+			'validation'	=> \Config\Services::validation()
+		];
+		return view('produk/edit', $data);
 	}
 
 	public function prosesEdit($id)
@@ -145,24 +145,22 @@ class Produk extends Controller
 				]
 			],
 			'nama_produk'	=> [
-	        	'rules'   	=> 'required|is_unique[produk.nama_produk,id_produk,'.$id.']',
-	        	'errors'  	=> [
-		          	'required'		=> 'Nama produk wajib diisi.',
+				'rules'   	=> 'required|is_unique[produk.nama_produk,id_produk,' . $id . ']',
+				'errors'  	=> [
+					'required'		=> 'Nama produk wajib diisi.',
 					'is_unique'		=> 'Nama produk sudah pernah digunakan.'
-	        	]
-	      	],
-	      	'harga_produk'	=> [
-	      		'rules'		=> 'required|integer|min_length[4]',
-	      		'errors'	=> [
-	      			'required'	 	=> 'Harga produk wajib diisi.',
-					'integer'	 	=> 'Harga produk harus bernilai angka.',
+				]
+			],
+			'harga_produk'	=> [
+				'rules'		=> 'required|integer|min_length[4]',
+				'errors'	=> [
+					'required'	 	=> 'Harga produk wajib diisi.',
+					'integer'	 		=> 'Harga produk harus bernilai angka.',
 					'min_length' 	=> 'Harga produk minimal berisi 4 digit',
-	      		]
-	      	]
+				]
+			]
 		])) {
-	 	
 			return redirect()->to('/produk/edit/' . $id)->withInput();
-
 		} else {
 			$data = [
 				'id_produk'		=> $id,
@@ -172,8 +170,9 @@ class Produk extends Controller
 			];
 
 			$this->model_produk->save($data);
+
 			session()->setFlashdata('success', 'Produk berhasil diubah!');
-            return redirect()->to('/produk');
+			return redirect()->to('/produk');
 		}
 	}
 
@@ -185,10 +184,10 @@ class Produk extends Controller
 		if ($user['level_user'] == 'kasir') {
 			return redirect()->back();
 		}
-		
+
 		$this->model_produk->delete($id);
+
 		session()->setFlashdata('warning', 'Produk berhasil dihapus');
 		return redirect()->to('/produk');
 	}
 }
-

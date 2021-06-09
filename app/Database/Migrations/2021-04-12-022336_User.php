@@ -10,12 +10,11 @@ class User extends Migration
     {
         $this->forge->addField([
             'id_user'               => [
-                'type'              => 'BIGINT',
-                'constraint'        => 20,
-                'unsigned'          => TRUE,
+                'type'              => 'INT',
+                'constraint'        => 11,
                 'auto_increment'    => TRUE
             ],
-            'nama'                  => [
+            'nama_user'             => [
                 'type'              => 'VARCHAR',
                 'constraint'        => '100',
             ],
@@ -35,13 +34,8 @@ class User extends Migration
                 'type'              => 'ENUM',
                 'constraint'        => ['pengelola', 'kasir'],
             ],
-            // 'terakhir_diubah TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
-            'tgl_ditambahkan'       => [
-                'type'              => 'TIMESTAMP',
-            ],
-            'terakhir_diubah'       => [
-                'type'              => 'TIMESTAMP',
-            ]
+            'tgl_ditambahkan TIMESTAMP DEFAULT CURRENT_TIMESTAMP',
+            'terakhir_diubah TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
         ]);
         $this->forge->addKey('id_user', TRUE);
         $this->forge->createTable('user');

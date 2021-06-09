@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Models;
 
@@ -8,8 +8,8 @@ class UserModel extends Model
 {
 	protected $table = 'user';
 	protected $primaryKey = 'id_user';
-	protected $allowedFields = ['nama', 'email', 'foto', 'password', 'level_user'];
-	
+	protected $allowedFields = ['nama_user', 'email', 'foto', 'password', 'level_user'];
+
 	protected $useTimestamps = true;
 	protected $createdField = 'tgl_ditambahkan';
 	protected $updatedField = 'terakhir_diubah';
@@ -17,8 +17,8 @@ class UserModel extends Model
 	public function getUser($email)
 	{
 		return $this->db->table($this->table)
-						->where('email', $email)
-						->get()
-						->getRowArray();
+			->where('email', $email)
+			->get()
+			->getRowArray();
 	}
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Models;
 
@@ -11,14 +11,15 @@ class LaporanModel extends Model
 	public function laporanTransaksi()
 	{
 		return $this->table($this->table)
-					->orderBy('id_transaksi', 'DESC');
+			->join('user', 'user.id_user = transaksi.id_user')
+			->orderBy('id_transaksi', 'DESC');
 	}
 
 	public function getTotalTransaksi()
 	{
 		return $this->db->table($this->table)
-						->selectSUM('total_transaksi')
-						->get()
-						->getRowArray();
+			->selectSUM('total_transaksi')
+			->get()
+			->getRowArray();
 	}
 }

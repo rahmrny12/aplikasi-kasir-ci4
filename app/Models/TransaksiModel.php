@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Models;
 
@@ -13,21 +13,27 @@ class TransaksiModel extends Model
 	public function getPesanan()
 	{
 		return $this->db->table($this->table)
-						->join('produk', 'produk.id_produk = detail_transaksi.id_produk')
-						->where('status_transaksi', 'belum diproses')
-						->orderBy('id_detail', 'DESC')
-						->get()
-						->getResultArray();
+			->join('produk', 'produk.id_produk = detail_transaksi.id_produk')
+			->where('status_transaksi', 'belum diproses')
+			->orderBy('id_detail', 'DESC')
+			->get()
+			->getResultArray();
 	}
 
 	public function bayar($data)
 	{
-		$this->db->table($this->table)
-				 ->set(['status_transaksi' => 'sudah diproses'])
-				 ->where('status_transaksi', 'belum diproses')
-				 ->update();
+		$this->db->table('transaksi')
+			->insert($data);
 
-		return $this->db->table('transaksi')
-						->insert($data);
+		$id_transaksi = $this->db->table('transaksi')
+			->select('id_transaksi')
+			->orderBy('id_transaksi', 'DESC')
+			->get()
+			->getRowArray();
+
+		$this->db->table($this->table)
+			->set(['status_transaksi' => 'sudah diproses', 'id_transaksi' => $id_transaksi])
+			->where('status_transaksi', 'belum diproses')
+			->update();
 	}
 }

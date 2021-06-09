@@ -55,16 +55,16 @@ class Transaksi extends Controller
 		])) {
 
 			return redirect()->to('/transaksi')->withInput();
-
 		} else {
 			$data = [
-				'id_produk'			=> $this->request->getPost('id_produk'),
-				'jumlah_produk'		=> $jumlah_produk,
-				'status_transaksi'	=> 'belum diproses',
-				'waktu_transaksi' 	=> $waktu
+				'id_produk'					=> $this->request->getPost('id_produk'),
+				'id_transaksi'			=> null,
+				'jumlah_produk'			=> $jumlah_produk,
+				'status_transaksi'	=> 'belum diproses'
 			];
 
 			$this->model_transaksi->save($data);
+
 			return redirect()->to('/transaksi');
 		}
 	}
@@ -85,9 +85,7 @@ class Transaksi extends Controller
 				]
 			]
 		])) {
-
 			return redirect()->to('/transaksi')->withInput();
-
 		} else {
 			$email = session()->get('user');
 			$user = $this->model_user->getUser($email);
@@ -113,16 +111,16 @@ class Transaksi extends Controller
 
 			$data = [
 				'total_transaksi' 		=> $total,
-				'user'					=> $user['nama'],
+				'id_user'				=> $user['id_user'],
 				'bayar_transaksi' 		=> $bayar,
-				'kembalian_transaksi' 	=> $kembalian,
+				'kembalian_transaksi'	=> $kembalian,
 				'tanggal_transaksi'		=> $tanggal,
 				'waktu_transaksi'		=> $waktu
 			];
 
 			$this->model_transaksi->bayar($data);
+
 			session()->setFlashdata('success', 'Transaksi berhasil dilakukan!');
-			// saya ingin apabila transaksi berhasil, tampilkan detail transaksi pada index transaksi berupa modal
 			return redirect()->to('/transaksi');
 		}
 	}
@@ -130,7 +128,7 @@ class Transaksi extends Controller
 	public function laporan()
 	{
 		$page_counter = $this->request->getVar('page_laporan');
-		if(empty($page_counter)) {
+		if (empty($page_counter)) {
 			$page_counter = 1;
 		}
 
@@ -138,12 +136,12 @@ class Transaksi extends Controller
 
 		$paginate = [
 			'laporan' 			=> $this->model_laporan->laporanTransaksi()
-													   ->paginate(4, 'laporan'),
+				->paginate(4, 'laporan'),
 			'pager'	  			=> $this->model_laporan->pager,
 			'page_counter'		=> $page_counter,
 			'laporan_total'		=> $total_transaksi
 		];
-		
+
 		$data = [
 			'title'		=> 'Laporan Transaksi',
 			'user'		=> $this->model_user->getUser(session()->get('user')),

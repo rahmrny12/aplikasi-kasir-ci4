@@ -13,7 +13,7 @@
     <div class="col-md-8">
       <a class="float-right mt-2" href="<?= base_url('home/edit-profile'); ?>">Edit Profile</a>
       <div class="card-body">
-        <h5 class="card-title"><?= $user['nama']; ?></h5>
+        <h5 class="card-title"><?= $user['nama_user']; ?></h5>
         <p class="card-text"><?= $user['email']; ?></p>
         <p class="card-text"><small class="text-muted">Sejak <?= date('d M Y', strtotime($user['tgl_ditambahkan'])); ?></small></p>
       </div>

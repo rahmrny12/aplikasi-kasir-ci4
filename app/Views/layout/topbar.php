@@ -23,7 +23,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-none d-lg-inline text-gray-600 small"><?= ucwords($user['level_user']); ?></span>
                         <div class="topbar-divider d-none d-sm-block"></div>
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $user['nama']; ?></span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $user['nama_user']; ?></span>
                         <img class="img-profile rounded-circle" src="<?= base_url('assets/img/profile/' . $user['foto']) ?>">
                     </a>
                     <!-- Dropdown - User Information -->

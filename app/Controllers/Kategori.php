@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Controllers;
 
@@ -61,13 +61,13 @@ class Kategori extends Controller
 		])) {
 
 			return redirect()->to('/kategori/tambah')->withInput();
-
 		} else {
 			$data = [
 				'nama_kategori' 	=> ucwords(strtolower($this->request->getPost('nama_kategori')))
 			];
 
 			$this->model_kategori->save($data);
+
 			session()->setFlashdata('success', 'Kategori baru berhasil ditambahkan!');
 			return redirect()->to('/kategori');
 		}
@@ -104,7 +104,6 @@ class Kategori extends Controller
 		])) {
 
 			return redirect()->to('/kategori/edit/' . $id)->withInput();
-
 		} else {
 			$data = [
 				'id_kategori'		=> $id,
@@ -112,6 +111,7 @@ class Kategori extends Controller
 			];
 
 			$this->model_kategori->save($data);
+
 			session()->setFlashdata('success', 'Kategori berhasil diubah!');
 			return redirect()->to(base_url('kategori'));
 		}
@@ -125,10 +125,10 @@ class Kategori extends Controller
 		if ($user['level_user'] == 'kasir') {
 			return redirect()->back();
 		}
-		
+
 		$this->model_kategori->delete($id);
+
 		session()->setFlashdata('warning', 'Kategori berhasil dihapus');
 		return redirect()->to(base_url('kategori'));
 	}
 }
-

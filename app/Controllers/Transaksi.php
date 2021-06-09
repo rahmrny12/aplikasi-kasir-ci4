@@ -5,7 +5,6 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\ProdukModel;
 use App\Models\TransaksiModel;
-use App\Models\LaporanModel;
 use App\Models\UserModel;
 
 class Transaksi extends Controller
@@ -18,7 +17,6 @@ class Transaksi extends Controller
 		$this->model_produk = new ProdukModel();
 		$this->model_transaksi = new TransaksiModel();
 		$this->model_user = new UserModel();
-		$this->model_laporan = new LaporanModel();
 	}
 
 	public function index()
@@ -53,7 +51,6 @@ class Transaksi extends Controller
 				]
 			]
 		])) {
-
 			return redirect()->to('/transaksi')->withInput();
 		} else {
 			$data = [
@@ -63,7 +60,7 @@ class Transaksi extends Controller
 				'status_transaksi'	=> 'belum diproses'
 			];
 
-			$this->model_transaksi->save($data);
+			$this->model_transaksi->tambahPesanan($data);
 
 			return redirect()->to('/transaksi');
 		}
@@ -111,13 +108,12 @@ class Transaksi extends Controller
 
 			$data = [
 				'total_transaksi' 		=> $total,
-				'id_user'				=> $user['id_user'],
+				'id_user'							=> $user['id_user'],
 				'bayar_transaksi' 		=> $bayar,
-				'kembalian_transaksi'	=> $kembalian,
-				'tanggal_transaksi'		=> $tanggal,
-				'waktu_transaksi'		=> $waktu
+				'kembalian_transaksi'	=> $kembalian
 			];
 
+			$this->model_transaksi->insert($data);
 			$this->model_transaksi->bayar($data);
 
 			session()->setFlashdata('success', 'Transaksi berhasil dilakukan!');
@@ -132,12 +128,12 @@ class Transaksi extends Controller
 			$page_counter = 1;
 		}
 
-		$total_transaksi = $this->model_laporan->getTotalTransaksi();
+		$total_transaksi = $this->model_transaksi->getTotalTransaksi();
 
 		$paginate = [
-			'laporan' 			=> $this->model_laporan->laporanTransaksi()
+			'laporan' 			=> $this->model_transaksi->laporanTransaksi()
 				->paginate(4, 'laporan'),
-			'pager'	  			=> $this->model_laporan->pager,
+			'pager'	  			=> $this->model_transaksi->pager,
 			'page_counter'		=> $page_counter,
 			'laporan_total'		=> $total_transaksi
 		];

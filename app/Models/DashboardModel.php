@@ -29,7 +29,7 @@ class DashboardModel extends Model
 	public function getTransaksi()
 	{
 		return $this->db->table('transaksi')
-			->select('tanggal_transaksi, waktu_transaksi, total_transaksi')
+			->select('waktu_transaksi, total_transaksi')
 			->orderBy('id_transaksi', 'DESC')
 			->limit(3)
 			->get()

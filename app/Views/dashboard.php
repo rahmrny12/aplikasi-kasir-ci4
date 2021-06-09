@@ -103,8 +103,8 @@
                   <tbody>
                     <?php foreach ($transaksi as $row) : ?>
                       <tr>
-                        <td><?= $row['tanggal_transaksi']; ?></td>
-                        <td><?= $row['waktu_transaksi']; ?></td>
+                        <td><?= date('Y-m-d', strtotime($row['waktu_transaksi'])); ?></td>
+                        <td><?= date('H:i:s', strtotime($row['waktu_transaksi'])); ?></td>
                         <td><?= 'Rp. ' . number_format($row['total_transaksi']); ?></td>
                       </tr>
                     <?php endforeach; ?>

@@ -10,7 +10,7 @@ class UserModel extends Model
 	protected $primaryKey = 'id_user';
 	protected $allowedFields = ['nama_user', 'email', 'foto', 'password', 'level_user'];
 
-	protected $useTimestamps = true;
+	protected $useTimestamp = true;
 	protected $createdField = 'tgl_ditambahkan';
 	protected $updatedField = 'terakhir_diubah';
 

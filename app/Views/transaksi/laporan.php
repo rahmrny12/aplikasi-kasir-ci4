@@ -44,8 +44,8 @@
                                         foreach ($laporan as $row) : ?>
                                             <tr>
                                                 <td><?= $i++ ?></td>
-                                                <td><?= $row['tanggal_transaksi']; ?></td>
-                                                <td><?= $row['waktu_transaksi']; ?></td>
+                                                <td><?= date('d-m-Y', strtotime($row['waktu_transaksi'])); ?></td>
+                                                <td><?= date('H:i:s', strtotime($row['waktu_transaksi'])); ?></td>
                                                 <td><?= $row['nama_user']; ?></td>
                                                 <td><?= 'Rp. ' . number_format($row['bayar_transaksi']); ?></td>
                                                 <td><?= 'Rp. ' . number_format($row['kembalian_transaksi']); ?></td>
